@@ -1,0 +1,53 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scraper_id: MyString
+  name: MyString
+  sku: MyString
+  latin_name: MyString
+  family_name: MyString
+  maturity_min: 1
+  maturity_max: 1
+  zone_min: 1
+  zone_max: 1
+  description: MyText
+  drought_tolerant: false
+  salt_tolerant: false
+  poisonous: false
+  pet_friendly: false
+  medicinal: false
+  edible: false
+  fruits: false
+  thorns: false
+  growth: MyString
+  care_level: MyString
+  image_link: MyString
+  info_link: MyString
+  plant_subcategory: one
+  seed_type: one
+
+two:
+  scraper_id: MyString
+  name: MyString
+  sku: MyString
+  latin_name: MyString
+  family_name: MyString
+  maturity_min: 1
+  maturity_max: 1
+  zone_min: 1
+  zone_max: 1
+  description: MyText
+  drought_tolerant: false
+  salt_tolerant: false
+  poisonous: false
+  pet_friendly: false
+  medicinal: false
+  edible: false
+  fruits: false
+  thorns: false
+  growth: MyString
+  care_level: MyString
+  image_link: MyString
+  info_link: MyString
+  plant_subcategory: two
+  seed_type: two
