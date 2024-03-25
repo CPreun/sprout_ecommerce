@@ -22,7 +22,7 @@ plants.each do |plant|
     plant_subcategory.save
     puts plant_subcategory.inspect
 
-    new_plant = Plant.find_or_initialize_by(scraper_id: plant['scraper_id']) do |p|
+    new_plant = Plant.find_or_initialize_by(scraper_id: plant[0].to_s) do |p|
         p.name = plant['name']
         p.sku = plant['sku'].scan(/SKU: (.*)/).flatten.first
         # p.zone_min = plant['zone_min']
@@ -32,7 +32,6 @@ plants.each do |plant|
         p.info_link = plant['info_link']
         p.plant_subcategory_id = plant_subcategory.id
     end
-
     new_plant.save
 
     price_hash = JSON.parse(plant['prices'])
@@ -103,15 +102,13 @@ plants.each do |plant|
             seed_type = fact_string.scan(/Seed type (.*) \?/).flatten.first&.strip
 
             new_seed_type = SeedType.find_or_initialize_by(seed_type: seed_type)
-            puts new_seed_type.inspect
             new_seed_type.save
+            puts new_seed_type.inspect
             new_plant.seed_type_id = new_seed_type.id
         end
     end
 
     about_hash = JSON.parse(plant['all_about'])
-    puts about_hash
-
     about_hash.each do |about|
         about_string = about['all_about']
 
@@ -132,10 +129,20 @@ plants.each do |plant|
     end
 
     new_plant.save
-    new_plant.inspect
+    puts new_plant.valid?
+    puts new_plant.errors.full_messages
+    puts new_plant.inspect
+# https://#{new_plant.image_link}
+    require 'open-uri'
 
-    new_plant.image.attach(io: URI.open(new_plant.image_link), filename: "#{new_plant.name.downcase.gsub(' ', '_')}.jpg")
+    image_url = 'https://' + new_plant.image_link
 
+    downloaded_image = URI.open(image_url)
+
+    new_plant.image.attach(io: downloaded_image, filename: "#{new_plant.name.downcase.gsub(' ', '_')}.jpg")
+
+    new_plant.save
+    puts new_plant.valid?
     puts "====================="
     break
 end

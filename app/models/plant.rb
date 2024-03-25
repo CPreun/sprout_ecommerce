@@ -1,8 +1,8 @@
 class Plant < ApplicationRecord
   validates :name, presence: true, uniqueness: true
-  validates :plant_subcategories_id, presence: true
+  validates :plant_subcategory_id, presence: true
 
-  belongs_to :plant_category
+  # belongs_to :plant_category
   belongs_to :plant_subcategory
   belongs_to :seed_type
 
@@ -21,7 +21,7 @@ class Plant < ApplicationRecord
     %w[plant_subcategory]
   end
 
-  accepts_nested_attributes_for :plant_category, allow_destroy: false
+  # accepts_nested_attributes_for :plant_category, allow_destroy: false
   accepts_nested_attributes_for :plant_subcategory, allow_destroy: false
   accepts_nested_attributes_for :prices, allow_destroy: true
   accepts_nested_attributes_for :sunlight_amounts, allow_destroy: false

@@ -25,4 +25,34 @@ ActiveAdmin.register Plant do
   # end
   
   # remove_filter :image_attachment, :image_blob, :seed_type, :plant_sunlight_amounts, :sunlight_amounts, :prices, :scraper_id, :sku, :zone_min, :zone_max, :maturity_min, :maturity_max, :drought_tolerant, :salt_tolerant, :poisonous, :pet_friendly, :medicinal, :edible, :fruits, :thorns, :growth, :care_level, :description, :image_link, :info_link
+
+  form do |f|
+    f.semantic_errors
+    f.inputs do
+      f.input :name
+      f.input :sku
+      f.input :latin_name
+      f.input :family_name
+      f.input :maturity_min
+      f.input :maturity_max
+      f.input :zone_min
+      f.input :zone_max
+      f.input :description
+      f.input :drought_tolerant
+      f.input :salt_tolerant
+      f.input :poisonous
+      f.input :pet_friendly
+      f.input :medicinal
+      f.input :edible
+      f.input :fruits
+      f.input :thorns
+      f.input :growth
+      f.input :care_level
+      f.input :info_link
+      f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, size: '100x100') : content_tag(:span, "Upload image")
+      f.input :plant_subcategory_id, as: :select, collection: PlantSubcategory.all.map { |subcategory| [subcategory.plant_subcategory, subcategory.id] }
+    end
+    f.actions
+  end
+
 end
