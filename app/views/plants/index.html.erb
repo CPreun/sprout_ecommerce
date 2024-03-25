@@ -1,0 +1,18 @@
+<h1>Plants</h1>
+<p><%= pluralize(@plants.count, "result") %> found</p>
+
+<div>
+   <% @plants.each do |plant| %>
+    <div class='card'>
+        <%= image_tag plant.image, alt: plant.name, class: 'card-img-top' %>
+        <div class='card-body'>
+            <h5 class='card-title'></h5><%= plant.name %></h5>
+            <h6 class='card-subtitle'><i><%= plant.latin_name %></i></h6>
+            <p class='card-text'><%= plant.description %></p>
+            <%# <p class='card-text'><%= plant.price </p> %>
+            <%= link_to "Details", "/plants/#{plant.name.gsub(' ', '_')}", class: "btn btn-primary" %>
+        </div>
+    </div>
+    <% end %>
+</div>
+

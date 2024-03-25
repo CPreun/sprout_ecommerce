@@ -131,18 +131,16 @@ plants.each do |plant|
     new_plant.save
     puts new_plant.valid?
     puts new_plant.errors.full_messages
-    puts new_plant.inspect
-# https://#{new_plant.image_link}
+
     require 'open-uri'
 
     image_url = 'https://' + new_plant.image_link
-
     downloaded_image = URI.open(image_url)
-
     new_plant.image.attach(io: downloaded_image, filename: "#{new_plant.name.downcase.gsub(' ', '_')}.jpg")
 
     new_plant.save
     puts new_plant.valid?
+    puts new_plant.errors.full_messages
+
     puts "====================="
-    break
 end
