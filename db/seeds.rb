@@ -91,11 +91,12 @@ plants.each do |plant|
         
         if fact_string.include?('Matures')
             mature_string = fact_string.scan(/\d+/).flatten.first&.strip&.split('-')
-            mature_min = mature_string.first&.to_i
-            mature_max = mature_string.last&.to_i
-            new_plant.maturity_min = mature_min
-            new_plant.maturity_max = mature_max
-            # puts "#{mature_min} - #{mature_max} days"
+            unless mature_string.nil?
+                mature_min = mature_string.first&.to_i
+                mature_max = mature_string.last&.to_i
+                new_plant.maturity_min = mature_min
+                new_plant.maturity_max = mature_max                
+            end
         end
 
         if fact_string.include?('Seed type')
@@ -130,17 +131,20 @@ plants.each do |plant|
 
     new_plant.save
     puts new_plant.valid?
-    puts new_plant.errors.full_messages
+    # puts new_plant.errors.full_messages
+    
+    unless new_plant.image.attached?
+        require 'open-uri'
 
-    require 'open-uri'
-
-    image_url = 'https://' + new_plant.image_link
-    downloaded_image = URI.open(image_url)
-    new_plant.image.attach(io: downloaded_image, filename: "#{new_plant.name.downcase.gsub(' ', '_')}.jpg")
+        image_url = 'https://' + new_plant.image_link
+        downloaded_image = URI.open(image_url)
+        new_plant.image.attach(io: downloaded_image, filename: "#{new_plant.name.downcase.gsub(' ', '_')}.jpg")
+    end
 
     new_plant.save
     puts new_plant.valid?
-    puts new_plant.errors.full_messages
+    # puts new_plant.errors.full_messages
 
     puts "====================="
+    sleep(2000)
 end

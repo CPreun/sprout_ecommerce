@@ -1,14 +1,13 @@
 <h1>Plants</h1>
-<p><%= pluralize(@plants.count, "result") %> found</p>
+<p><%= pluralize(@plants_count, "result") %> found</p>
 
-<div>
+<div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
    <% @plants.each do |plant| %>
-    <div class='card'>
-        <%= image_tag plant.image, alt: plant.name, class: 'card-img-top' %>
+    <div class='card p-0'>
+        <%= image_tag plant.image, alt: plant.name, width: "200", class: 'card-img-top' %>
         <div class='card-body'>
             <h5 class='card-title'></h5><%= plant.name %></h5>
             <h6 class='card-subtitle'><i><%= plant.latin_name %></i></h6>
-            <p class='card-text'><%= plant.description %></p>
             <%# <p class='card-text'><%= plant.price </p> %>
             <%= link_to "Details", "/plants/#{plant.name.gsub(' ', '_')}", class: "btn btn-primary" %>
         </div>
@@ -16,3 +15,4 @@
     <% end %>
 </div>
 
+<%= paginate @plants %>

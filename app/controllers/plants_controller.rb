@@ -1,6 +1,10 @@
 class PlantsController < ApplicationController
   def index
-    @plants = Plant.all
+    all_plants = Plant.all
+
+    @plants_count = all_plants.count
+    @plants = all_plants.includes(:prices, :plant_subcategory).order(:name).page(params[:page]).per(10)
+
   end
 
   def show
