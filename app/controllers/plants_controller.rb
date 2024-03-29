@@ -3,7 +3,7 @@ class PlantsController < ApplicationController
     all_plants = Plant.all
 
     @plants_count = all_plants.count
-    @plants = all_plants.includes(:prices, :plant_subcategory).order(:name).page(params[:page]).per(10)
+    @plants = all_plants.includes(:prices, :plant_subcategory).order(:name).page(params[:page]).per(12)
 
   end
 

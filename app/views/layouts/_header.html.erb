@@ -1,0 +1,33 @@
+<header class='container-fluid'>
+    <nav class='navbar navbar-expand-sm container-fluid'>        
+        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#nav-overflow'>
+            <span class='navbar-toggler-icon'></span>
+        </button>
+        <%# <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z"/></svg> %>
+        <%= link_to "Sprout", root_path, class: 'navbar-brand' %>            
+        
+        <div class='collapse navbar-collapse' id='nav-overflow'>                     
+            <%= link_to "About", about_path, class: 'nav-link' %>
+            <%= link_to "Contact Us", contact_path, class: 'nav-link' %>
+            <%= link_to "Plants", plants_path, class: 'nav-link' %>
+            <%# search always visible??? %>
+        </div>
+        <div>Log In Conditional</div>
+        <button class='cart' type='button' data-bs-toggle='collapse' data-bs-target='#cart-details'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            </svg>
+        </button>
+        <div class='collapse' id='cart-details'>
+            <%# for item in session... %>
+            <div class='card'>
+                <div class='card-body'>
+                    <h5 class='card-title'>Cart item</h5>
+                    <p class='card-text'>Cart item details</p>
+                </div>
+            </div>
+            <button class='btn btn-primary'>Checkout</button>
+        </div>
+    </nav>
+    <hr class='mt-0'>
+</header>

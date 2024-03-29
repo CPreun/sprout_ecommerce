@@ -1,0 +1,29 @@
+<footer class='container-fluid'>
+    <hr>
+    <nav class='navbar align-items-start'>
+        <div>
+            <p>CONTACT</p>
+            <ul>
+                <li>123 Sprout St<br/>Winnipeg, MB</li>
+                <li>seeds@sprout.ca<br/>1.204.567.8910</li>
+            </ul>
+        </div>
+        <div>
+            <p>FOLLOW</p>
+            <ul>
+                <%= link_to "Instagram", "#" %><br/>
+                <%= link_to "Facebook", "#" %>
+            </ul>
+        </div>
+        <div>
+            <p>ACCOUNT</p>
+            <ul>
+                <% if session[:user_id] %>
+                    <%= link_to "My Account", '#' %>
+                <% else %>
+                    <%= link_to "Sign Up", '#' %>
+                <% end %>
+            </ul>
+        </div>
+    </nav>
+</footer>
