@@ -1,4 +1,6 @@
 class PlantsController < ApplicationController
+  add_breadcrumb "Seeds", :plants_path
+
   def index
     all_plants = Plant.all
 
@@ -9,5 +11,6 @@ class PlantsController < ApplicationController
 
   def show
     @plant = Plant.includes(:prices, :seed_type, :plant_subcategory, :sunlight_amounts).find_by(name: params[:plant_name].gsub("_", " "))
+    add_breadcrumb @plant.name, plants_path + "/" + @plant.name.gsub(" ", "_")
   end
 end

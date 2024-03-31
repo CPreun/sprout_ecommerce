@@ -1,3 +1,4 @@
+=begin
 full_sun_entry = SunlightAmount.find_or_create_by(amount: 'Full sun')
 puts full_sun_entry.inspect
 partial_sun_entry = SunlightAmount.find_or_create_by(amount: 'Partial sun')
@@ -148,3 +149,18 @@ plants.each do |plant|
     puts "====================="
     sleep(2000)
 end
+
+Province.create(province: "Alberta", code: "AB", gst: 0.05)
+Province.create(province: "British Columbia", code: "BC", gst: 0.05, pst: 0.07)
+Province.create(province: "Manitoba", code: "MB", gst: 0.05, pst: 0.07)
+Province.create(province: "New Brunswick", code: "NB", hst: 0.15)
+Province.create(province: "Newfoundland and Labrador", code: "NL", hst: 0.15)
+Province.create(province: "Northwest Territories", code: "NT", gst: 0.05)
+Province.create(province: "Nova Scotia", code: "NS", hst: 0.15)
+Province.create(province: "Nunavut", code: "NU", gst: 0.05)
+Province.create(province: "Ontario", code: "ON", hst: 0.13)
+Province.create(province: "Prince Edward Island", code: "PE", gst: 0.05, pst: 0.10)
+Province.create(province: "Quebec", code: "QC", gst: 0.05, pst: 0.09975)
+Province.create(province: "Saskatchewan", code: "SK", gst: 0.05, pst: 0.06)
+Province.create(province: "Yukon", code: "YT", gst: 0.05)
+=end
