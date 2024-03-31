@@ -1,4 +1,4 @@
-=begin
+# =begin
 full_sun_entry = SunlightAmount.find_or_create_by(amount: 'Full sun')
 puts full_sun_entry.inspect
 partial_sun_entry = SunlightAmount.find_or_create_by(amount: 'Partial sun')
@@ -15,6 +15,9 @@ data = File.read(csv_file)
 plants = CSV.parse(data, headers: true)
 
 plants.each do |plant|
+    puts plant['name']
+    puts plant[0]
+
     plant_category = PlantCategory.find_or_initialize_by(plant_category: plant['category'].strip.capitalize)
     plant_category.save
     puts plant_category.inspect
@@ -24,7 +27,13 @@ plants.each do |plant|
     puts plant_subcategory.inspect
 
     new_plant = Plant.find_or_initialize_by(scraper_id: plant[0].to_s) do |p|
-        p.name = plant['name']
+        unique_name_check = Plant.find_by(name: plant['name'])
+        if unique_name_check.nil?
+            p.name = plant['name']
+        else
+            p.name = plant['name'] + " " + plant['sku']
+        end
+
         p.sku = plant['sku'].scan(/SKU: (.*)/).flatten.first
         # p.zone_min = plant['zone_min']
         # pp.zone_max = plant['zone_max']
@@ -32,6 +41,10 @@ plants.each do |plant|
         p.image_link = plant['image_link']
         p.info_link = plant['info_link']
         p.plant_subcategory_id = plant_subcategory.id
+    end
+    unless new_plant.valid?
+        puts new_plant.errors.full_messages
+        exit()
     end
     new_plant.save
 
@@ -44,6 +57,10 @@ plants.each do |plant|
         new_price = Price.find_or_initialize_by(price: price, plant_id: new_plant.id)
         new_price.weight = weight
         new_price.quantity = seed_amount
+        unless new_price.valid?
+            puts new_price.errors.full_messages
+            exit()
+        end
         new_price.save
         puts new_price.inspect
         puts new_price.price
@@ -147,9 +164,10 @@ plants.each do |plant|
     # puts new_plant.errors.full_messages
 
     puts "====================="
-    sleep(2000)
+    sleep(2)
 end
 
+=begin
 Province.create(province: "Alberta", code: "AB", gst: 0.05)
 Province.create(province: "British Columbia", code: "BC", gst: 0.05, pst: 0.07)
 Province.create(province: "Manitoba", code: "MB", gst: 0.05, pst: 0.07)

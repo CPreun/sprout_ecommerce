@@ -4,7 +4,7 @@ class Plant < ApplicationRecord
 
   # belongs_to :plant_category
   belongs_to :plant_subcategory
-  belongs_to :seed_type
+  belongs_to :seed_type, optional: true
 
   has_many :plant_sunlight_amounts
   has_many :sunlight_amounts, through: :plant_sunlight_amounts

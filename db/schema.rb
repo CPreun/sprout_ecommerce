@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_29_173327) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_31_223117) do
   create_table "abouts", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", null: false
@@ -130,7 +130,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_173327) do
     t.string "image_link"
     t.string "info_link"
     t.integer "plant_subcategory_id", null: false
-    t.integer "seed_type_id", null: false
+    t.integer "seed_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plant_subcategory_id"], name: "index_plants_on_plant_subcategory_id"
