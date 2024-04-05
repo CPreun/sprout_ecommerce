@@ -7,9 +7,7 @@ Rails.application.routes.draw do
   get 'plants', to: 'plants#index'
   get 'plants/:plant_name', to: 'plants#show'
 
-  # namespace :admin do
-  #   get 'subcategories', to: 'plants#subcategories'
-  # end
+  get 'update_subcategories', to: 'application#update_subcategories'
   
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

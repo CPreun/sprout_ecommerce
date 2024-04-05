@@ -1,4 +1,23 @@
-<h1>Pages#contact</h1>
-<p>Find me in app/views/pages/contact.html.erb</p>
+<h1>Contact Us</h1>
 
-<%= @contact.street %>
+<ul>
+    <li><%= @contact.phone %></li>
+    <li><%= @contact.email %></li>
+    <li><%= @contact.street %></li>    
+    <li><%= @contact.city %>, <%= @contact.province.code %></li>
+    <li><%= @contact.postal_code %></li>
+</ul>
+
+<p>Questions?</p>
+
+<%= form_with do |f| %>
+    <div class='input-group'>
+        <%= f.text_field class: "form-control" %>
+    </div>
+    <div class='input-group'>
+        <%= f.text_area class: "form-control" %>
+    </div>
+    <div class='input-group'>
+        <%= f.submit class: "btn btn-primary" %>
+    </div>
+<% end %>

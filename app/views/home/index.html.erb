@@ -1,2 +1,14 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Welcome</h1>
+<%= render '/layouts/search' %>
+<div class='row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 py-3'>
+<% @plant_categories.each do |c| %>
+    <div class='card p-0'>
+        <%= image_tag c.image, alt: c.plant_category, width: "200", class: 'card-img-top' if c.image.attached? %>
+        <%= link_to "/plants?category=#{c.id}", class: "text-white" do %>
+            <div class='card-img-overlay d-flex align-items-center justify-content-center bg-dark opacity-75'>
+                <h5 class='card-title'><%= c.plant_category %></h5>
+            </div>
+        <% end %>
+    </div>
+<% end %>
+</div>

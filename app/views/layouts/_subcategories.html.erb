@@ -1,0 +1,5 @@
+<%= form_with do |form| %>
+  <div class='input-group' id='subcategory_select'>
+    <%= form.collection_select :subcategory, subcategories, :id, :plant_subcategory, {prompt: "Subcategory..."}, {class: 'form-select'} %>
+  </div>
+<% end %>

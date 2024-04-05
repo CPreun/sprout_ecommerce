@@ -1,10 +1,4 @@
 ActiveAdmin.register Plant do
-  # def subcategories
-  #   category = PlantCategory.find(params[:plant_category_id])
-  #   subcategories = category.plant_subcategories.map { |subcategory| [subcategory.plant_subcategory, subcategory.id] }
-  #   render json: subcategories
-  # end
-
   permit_params :name, :sku, :latin_name, :family_name, :maturity_min, :maturity_max, :zone_min, :zone_max, :description, 
                 :drought_tolerant, :salt_tolerant, :poisonous, :pet_friendly, :medicinal, :edible, :fruits, :thorns, :growth, 
                 :care_level, :info_link, :image, :plant_subcategory_id, :seed_type_id,

@@ -4,6 +4,8 @@ class PlantCategory < ApplicationRecord
     has_many :plant_subcategories
     # has_many :plants, through: :plant_subcategories
 
+    has_one_attached :image
+
     def self.ransackable_attributes(auth_object = nil)
         %w[plant_category created_at updated_at]
     end
