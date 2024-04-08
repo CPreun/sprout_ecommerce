@@ -1,4 +1,4 @@
-<%= form_with url: plants_path, method: :get, local: true do |form| %>
+<%= form_with url: plants_path, method: :get, local: true, id: 'search_form' do |form| %>
     <div class="input-group">
         <button type='button' class='btn btn-outline-success dropdown-toggle' data-bs-toggle='collapse' data-bs-target='#collapse_search'></button>
         <%= form.text_field :search, class: 'form-control shadow-none border-success', placeholder: "Search...", value: params[:search] %>
@@ -11,89 +11,14 @@
                 <%= form.collection_select :category, PlantCategory.all, :id, :plant_category, {prompt: "Select a category..."}, {data: { category_target: "category", action: "change->category#updateSubcategories" }, class: 'form-select'} %>
             </div>
             <%# <div class='input-group' id='subcategory_select'>            
-              <%= render '/layouts/subcategories', subcategories: []                
+              <%= render '/layouts/subcategories', subcategories: [] 
             </div> %>
             <div class='input-group' id='subcategory_select'>
-              <%= form.collection_select :subcategory, [], :id, :plant_subcategory, {prompt: "Subcategory..."}, {class: 'form-select'} %>
+              <select id="subcategory" class="form-select" form='search_form' name='subcategory' disabled>
+                <option value="">Select a subcategory...</option>
+                <%= options_from_collection_for_select [], :plant_subcategory, :id %>
+              </select>
             </div>
         </div>
     </div>
 <% end %>
-<%# category_controller.js %>
-<%# 
-
-    import { Controller } from '@hotwired/stimulus';
-import { Turbo } from '@hotwired/turbo-rails';
-
-export default class extends Controller {
-  static targets = ['category'];
-
-  connect() {
-    console.log('Category controller connected');
-  }
-
-  updateSubcategories() {
-    const categoryId = this.categoryTarget.value;
-    this.fetchAndUpdate(`/update_subcategories?category_id=${categoryId}`);
-  }
-
-  fetchAndUpdate(url) {
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            Accept: 'text/vnd.turbo-stream.html, text/html, application/xhtml+xml',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-Token': this.getMetaContent('csrf-token'),
-            'Cache-Control': 'no-cache',
-        }
-    })
-    .then(response => response.ok ? response.text() : Promise.reject(response))
-    .then(html => Turbo.renderStreamMessage(html))
-    .catch(error => console.error('Error:', error));
-  }
-
-  getMetaContent(name) {
-    return document.querySelector(`meta[name="${name}"]`).getAttribute('content');
-  }
-}
- %>
-<%# application_controller.rb %>
-<%# 
-
-    class ApplicationController < ActionController::Base
-    def update_subcategories
-        subcategories = PlantSubcategory.where(plant_category_id: params[:category_id])
-
-        render turbo_stream: turbo_stream.replace('subcategory_select', partial: '/layouts/subcategories', locals: { subcategories: subcategories })
-    end
-end
- %>
-<%# _subcategories.html.erb %>
- <%# 
-    
-    <%= form_with do |form| 
-    <%= form.collection_select :subcategory, subcategories, :id, :plant_subcategory, prompt: "Subcategory...", class: 'form-select' 
-    <% end 
-  %>
-<%# routes.rb %>
-  <%# 
-
-    Rails.application.routes.draw do
-  root to: 'home#index'
-
-  get 'about', to: 'pages#about'
-  get 'contact', to: 'pages#contact'
-
-  get 'plants', to: 'plants#index'
-  get 'plants/:plant_name', to: 'plants#show'
-
-  get 'update_subcategories', to: 'application#update_subcategories'
-  
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-end
-%>

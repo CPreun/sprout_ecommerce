@@ -33,9 +33,4 @@ export default class extends Controller {
   getMetaContent(name) {
     return document.querySelector(`meta[name="${name}"]`).getAttribute('content');
   }
-
-    // change(event) {
-    //   console.log('Category changed');
-    //   console.log(event.target.value);
-    // }
 }

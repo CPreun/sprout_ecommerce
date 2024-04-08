@@ -1,0 +1,10 @@
+<turbo-stream action="replace" target="subcategory_select">
+  <template>
+    <div class='input-group' id='subcategory_select'>
+      <select id="subcategory" name='subcategory' form='search_form' class="form-select">
+        <option value="">Subcategory...</option>
+        <%= options_from_collection_for_select(@subcategories, 'id', 'plant_subcategory') %>
+      </select>
+    </div>
+  </template>
+</turbo-stream>

@@ -18,9 +18,12 @@ class PlantsController < ApplicationController
   # end
 
   # def update_subcategories
-  #   subcategories = PlantSubcategory.where(plant_category_id: params[:category_id])
+    # @subcategories = PlantSubcategory.where(plant_category_id: params[:category_id])
 
-  #   render turbo_stream: turbo_stream.replace('subcategory_select', partial: 'subcategories', locals: { subcategories: subcategories })
+    # render turbo_stream: turbo_stream.replace('subcategory_select', partial: 'subcategories', locals: { subcategories: subcategories })
+  #   respond_to do |format|
+  #     format.turbo_stream
+  #   end
   # end
 
   def index
