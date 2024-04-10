@@ -1,6 +1,7 @@
 class Plant < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :plant_subcategory_id, presence: true
+  validates :prices, presence: true
 
   # belongs_to :plant_category
   belongs_to :plant_subcategory

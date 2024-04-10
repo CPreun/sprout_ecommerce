@@ -1,10 +1,52 @@
 <h1>Welcome</h1>
 <%= render '/layouts/search' %>
+
+<%# Feature %>
+<div id='feature_carousel' class='carousel slide' data-bs-ride='carousel'>
+    <div class='carousel-indicators'>
+        <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='0' class='active' aria-current='true' aria-label='Slide 1'></button>
+        <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='1' aria-label='Slide 2'></button>
+        <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='2' aria-label='Slide 3'></button>
+    </div>
+    <div class='carousel-inner'>
+        <div class='carousel-item active'>
+            <%# <%= image_tag 'feature1.jpg', alt: 'Feature 1', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block'>
+                <h5>Feature 1</h5>
+                <p>Feature 1 description</p>
+            </div>
+        </div>
+        <div class='carousel-item'>
+            <%# <%= image_tag 'feature2.jpg', alt: 'Feature 2', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block'>
+                <h5>Feature 2</h5>
+                <p>Feature 2 description</p>
+            </div>
+        </div>
+        <div class='carousel-item'>
+            <%# <%= image_tag 'feature3.jpg', alt: 'Feature 3', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block'>
+                <h5>Feature 3</h5>
+                <p>Feature 3 description</p>
+            </div>
+        </div>
+    </div>
+    <button class='carousel-control-prev' type='button' data-bs-target='#feature_carousel' data-bs-slide='prev'>
+        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+        <span class='visually-hidden'>Previous</span>
+    </button>
+    <button class='carousel-control-next' type='button' data-bs-target='#feature_carousel' data-bs-slide='next'>
+        <span class='carousel-control-next-icon' aria-hidden='true'></span>
+        <span class='visually-hidden'>Next</span>
+    </button>
+</div>
+
+<%# Categories %>
 <div class='row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 py-3'>
 <% @plant_categories.each do |c| %>
-    <div class='card p-0'>
-        <%= image_tag c.image, alt: c.plant_category, width: "200", class: 'card-img-top' if c.image.attached? %>
-        <%= link_to "/plants?category=#{c.id}", class: "text-white" do %>
+    <div class='card p-0 overflow-hidden'>
+        <%= link_to "/plants?category=#{c.id}", class: "text-white zoom" do %>
+            <%= image_tag c.image, alt: c.plant_category, width: "200", class: 'card-img-top' if c.image.attached? %>
             <div class='card-img-overlay d-flex align-items-center justify-content-center bg-dark opacity-75'>
                 <h5 class='card-title'><%= c.plant_category %></h5>
             </div>

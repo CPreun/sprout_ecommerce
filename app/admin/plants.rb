@@ -2,8 +2,10 @@ ActiveAdmin.register Plant do
   permit_params :name, :sku, :latin_name, :family_name, :maturity_min, :maturity_max, :zone_min, :zone_max, :description, 
                 :drought_tolerant, :salt_tolerant, :poisonous, :pet_friendly, :medicinal, :edible, :fruits, :thorns, :growth, 
                 :care_level, :info_link, :image, :plant_subcategory_id, :seed_type_id,
-                plant_subcategory_ids: [:id, :plant_subcategory, plant_category_ids: [:id, :plant_category]]
-
+                :prices_attributes => [:id, :price, :weight, :quantity, :sale, :_destroy],
+                :category_ids => [:id, :plant_category, :_destroy],
+                :sunlight_amount_ids => [:id, :sunlight_amount, :_destroy]
+                
   filter :name
   filter :latin_name
   filter :family_name
@@ -53,6 +55,28 @@ ActiveAdmin.register Plant do
       row "Plant Subcategory" do |plant|
         plant.plant_subcategory.plant_subcategory
       end
+      row "Prices" do |plant|
+        table do
+          thead do
+            if plant.prices.present?
+              tr do
+                th "Price"
+                th "Weight"
+                th "Quantity"
+                th "Sale"
+              end
+            end
+          end
+          plant.prices.each do |price|
+            tr do
+              td price.price
+              td price.weight
+              td price.quantity
+              td price.sale
+            end
+          end
+        end
+      end
       row "Seed Type" do |plant|
         plant.seed_type.present? ? plant.seed_type.seed_type : "N/A"
       end
@@ -90,6 +114,14 @@ ActiveAdmin.register Plant do
       f.input :sku
       # f.input :plant_category, as: :select, collection: PlantCategory.all.map { |category| [category.plant_category, category.id] }, input_html: { id: 'plant_category_select' }
       f.input :plant_subcategory, as: :select, collection: PlantSubcategory.all.order(:plant_category_id).map { |subcategory| ["#{subcategory.plant_category.plant_category} - #{subcategory.plant_subcategory}", subcategory.id]}, input_html: { id: 'plant_subcategory_select' }, prompt: "Select a category..."
+      f.inputs "Prices" do
+        f.has_many :prices, heading: false, allow_destroy: true do |price|
+          price.input :price
+          price.input :weight
+          price.input :quantity
+          price.input :sale
+        end
+      end
       f.input :latin_name
       f.input :family_name
       f.input :maturity_min

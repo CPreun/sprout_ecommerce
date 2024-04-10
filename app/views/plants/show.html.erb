@@ -3,3 +3,21 @@
 <h2><i><%= @plant.latin_name %></i></h2>
 <%= image_tag @plant.image, alt: @plant.name, width: "500", class: "img-thumbnail" %>
 <p><%= @plant.description %></p>
+
+<%= form_with url: "#", method: :post do |form| %>
+    <% if @plant.prices.count > 1 %>
+        <div class="input-group">
+            <%= form.collection_select :price, @plant.prices.all, :id, :price, {class: 'form-select'} %>
+        </div>
+    <% else %>
+        <div class='input-group'>
+            <%= form.label :price, @plant.prices.first.price %>
+        </div>
+    <% end %>
+    <div class='input-group'>
+        <%= form.number_field :quantity, class: 'form-control', value: 1 %>
+    </div>
+    <div class='input-group'>
+        <%= form.submit "Add to cart", class: 'btn btn-outline-success' %>
+    </div>
+<% end %>

@@ -1,16 +1,16 @@
 <%= render_breadcrumbs %>
 <p><%= pluralize(@plants_count, "result") %> found</p>
 
-<div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
    <% @plants.each do |plant| %>
-    <div class='card p-0'>
-        <%= image_tag plant.image, alt: plant.name, width: "200", class: 'card-img-top' %>
-        <div class='card-body'>
-            <h5 class='card-title'></h5><%= plant.name %></h5>
-            <h6 class='card-subtitle'><i><%= plant.latin_name %></i></h6>
-            <%# <p class='card-text'><%= plant.price </p> %>
-            <%= link_to "Details", "/plants/#{plant.name.gsub(' ', '_')}", class: "btn btn-primary" %>
-        </div>
+    <div class='card p-0 overflow-hidden'>
+        <%= link_to "/plants/#{plant.name.gsub(' ', '_')}", class: 'text-white zoom' do %>
+            <%= image_tag plant.image, alt: plant.name, width: "200", class: 'card-img-top' %>        
+            <div class='card-img-overlay d-flex flex-column justify-content-start bg-dark opacity-75 top-50 price'>
+                <h5 class='card-title d-flex'><%= plant.name %></h5>
+                <p class='card-text d-flex'>From <%= plant.prices.first.price %> </p>
+            </div>
+        <% end %>
     </div>
     <% end %>
 </div>
