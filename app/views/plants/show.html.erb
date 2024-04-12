@@ -4,14 +4,15 @@
 <%= image_tag @plant.image, alt: @plant.name, width: "500", class: "img-thumbnail" %>
 <p><%= @plant.description %></p>
 
-<%= form_with url: "#", method: :post do |form| %>
+<%= form_with url: cart_index_path, method: :post do |form| %>
+    <%= form.hidden_field :plant_id, value: @plant.id %>
     <% if @plant.prices.count > 1 %>
         <div class="input-group">
-            <%= form.collection_select :price, @plant.prices.all, :id, :price, {class: 'form-select'} %>
+            <%= form.collection_select :price_id, @plant.prices.all, :id, :price, {class: 'form-select'} %>
         </div>
     <% else %>
         <div class='input-group'>
-            <%= form.label :price, @plant.prices.first.price %>
+            <%= form.label :price_id, @plant.prices.first.price %>
         </div>
     <% end %>
     <div class='input-group'>

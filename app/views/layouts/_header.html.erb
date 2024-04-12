@@ -14,21 +14,46 @@
         <% if not current_page?("/") %>
             <%= render 'layouts/search' %>
         <% end %>
-        <div>Log In Conditional</div>
-        <button class='cart' type='button' data-bs-toggle='collapse' data-bs-target='#cart-details'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-            </svg>
-        </button>
+        <div class='d-flex flex-row'>
+            <% if user_signed_in? %>
+                <%= user_session %>
+                <%= current_user.name %>
+                <%= button_to "Logout", destroy_user_session_path, method: :delete, data: {turbo: false} %>
+            <% else %>
+                <%= button_to "Login", user_google_oauth2_omniauth_authorize_path, method: :post, data: {turbo: false} %>
+            <% end %>        
+            <button class='cart' type='button' data-bs-toggle='collapse' data-bs-target='#cart-details'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                </svg>
+            </button>
+        </div>
         <div class='collapse' id='cart-details'>
-            <%# for item in session... %>
-            <div class='card'>
-                <div class='card-body'>
-                    <h5 class='card-title'>Cart item</h5>
-                    <p class='card-text'>Cart item details</p>
+            <% if cart.present? %>
+                <%= puts cart.inspect %>
+                <% cart.each do |item| %>
+                <div class='card'>
+                    <div class='card-body'>
+                        <h5 class='card-title'><%= item[:plant].name %></h5>
+                        <% item[:amounts].each do |amount| %>
+                            <%= number_field :quantity, amount[:quantity], in: 1..100, step: 1 %>
+                            <p class='card-text'><%= amount[:quantity] %>@<%= amount[:price].price %></p>
+                        <% end %>
+                    </div>
+                    <div class='card-footer'>
+                        <%= button_to "Remove", cart_path(item[:plant].id), method: :delete, class: 'btn btn-secondary' %>
+                    </div>
                 </div>
-            </div>
-            <button class='btn btn-primary'>Checkout</button>
+                <% end %>
+                <button class='btn btn-primary'>Checkout</button>
+            <% else %>
+                <div class='card'>
+                    <div class='card-body'>
+                        <h5 class='card-title'>Add an item!</h5>
+                        <p class='card-text'>Subtext</p>
+                    </div>
+                </div>
+            <% end %>
         </div>
     </nav>
     <hr class='mt-0'>

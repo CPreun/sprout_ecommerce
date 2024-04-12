@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   get 'plants/:plant_name', to: 'plants#show'
 
   get 'update_subcategories', to: 'application#update_subcategories'
-  
+
+  resources :cart, only: [:index, :create, :update, :destroy]
+
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 

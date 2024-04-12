@@ -42,7 +42,6 @@ class PlantsController < ApplicationController
     if params[:sale] == "1"
       all_plants = all_plants.joins(:prices).where('prices.sale = ?', true)
     end
-    puts all_plants
 
     if params[:updated] == "1"
       all_plants = all_plants.where('updated_at > ?', 2.weeks.ago)
