@@ -36,7 +36,11 @@
                     <div class='card-body'>
                         <h5 class='card-title'><%= item[:plant].name %></h5>
                         <% item[:amounts].each do |amount| %>
-                            <%= number_field :quantity, amount[:quantity], in: 1..100, step: 1 %>
+                            <%= form_with url: cart_path(item[:plant].id), method: :put, remote: true do |f| %>
+                                <%= f.hidden_field :price_id, value: amount[:price].id %>
+                                <%= f.number_field :quantity, value: amount[:quantity], in: 0...100, step: 1, onChange: 'this.form.submit()' %>
+                                <%# <%= f.submit "Update", class: 'btn btn-outline-secondary' %>
+                            <% end %>
                             <p class='card-text'><%= amount[:quantity] %>@<%= amount[:price].price %></p>
                         <% end %>
                     </div>
