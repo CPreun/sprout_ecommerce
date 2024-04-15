@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_11_171108) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_15_034403) do
   create_table "abouts", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", null: false
@@ -182,7 +182,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_11_171108) do
     t.string "provider"
     t.string "uid"
     t.string "name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "street"
+    t.string "city"
+    t.string "postal_code"
+    t.integer "province_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -195,4 +203,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_11_171108) do
   add_foreign_key "plants", "plant_subcategories"
   add_foreign_key "plants", "seed_types"
   add_foreign_key "prices", "plants"
+  add_foreign_key "users", "provinces"
 end
