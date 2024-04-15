@@ -2,10 +2,23 @@
     <hr>
     <nav class='navbar align-items-start'>
         <div>
-            <p>CONTACT</p>
+            <p><%= link_to "ABOUT", about_path %></p>
             <ul>
-                <li>123 Sprout St<br/>Winnipeg, MB</li>
-                <li>seeds@sprout.ca<br/>1.204.567.8910</li>
+                <%# <li>Mon: 9am - 5pm</li>
+                <li>Tues: 9am - 5pm</li>
+                <li>Wed: 9am - 5pm</li>
+                <li>Thurs: 9am - 5pm</li>
+                <li>Fri: 9am - 5pm</li> %>
+                <li>Mon - Fri: 9am - 5pm</li>
+                <li>Sat: 10am - 4pm</li>
+                <li>Sun: Closed</li>
+            <ul>
+        </div>
+        <div>
+            <p><%= link_to "CONTACT", contact_path %></p>
+            <ul>
+                <li><%= @contact.street %><br/><%= @contact.city %>, <%= @contact.province.code %></li>
+                <li><%= @contact.email %><br/><%= @contact.phone %></li>
             </ul>
         </div>
         <div>
@@ -18,9 +31,10 @@
         <div>
             <p>ACCOUNT</p>
             <ul>
-                <% if session[:user_id] %>
-                    <%= link_to "My Account", '#' %>
+                <% if user_signed_in? %>
+                    <%= link_to "My Account", "/account" %>
                 <% else %>
+                    <%= button_to "Login", user_google_oauth2_omniauth_authorize_path, method: :post, data: {turbo: false}, class: 'link' %>
                     <%= link_to "Sign Up", '#' %>
                 <% end %>
             </ul>

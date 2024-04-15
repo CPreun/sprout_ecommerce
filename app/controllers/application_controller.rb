@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
     helper_method :cart
+    before_action :contact
+
+    def contact
+      @contact = Contact.first
+    end
 
     def update_subcategories
         @subcategories = PlantSubcategory.where(plant_category_id: params[:category_id])

@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_many :orders
   
-  belongs_to :province
+  belongs_to :province, optional: true
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name first_name last_name email phone city province_id created_at updated_at]
@@ -16,11 +16,11 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, 
-         :omniauthable, omniauth_providers: [:google_oauth2]
+  # devise :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :validatable, 
+  #        :omniauthable, omniauth_providers: [:google_oauth2]
 
-  # devise :rememberable, :omniauthable, omniauth_providers: [:google_oauth2]
+  devise :rememberable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   def self.from_omniauth(access_token)
     user = find_or_initialize_by(provider: access_token.provider, uid: access_token.uid)

@@ -11,7 +11,15 @@ Rails.application.routes.draw do
 
   resources :cart, only: [:index, :create, :update, :destroy]
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations'}
+
+  devise_scope :user do
+    get 'account', to: 'users/registrations#show', as: 'user_account'
+    put 'account', to: 'users/registrations#update', as: 'update_user_account'
+    delete 'account', to: 'users/registrations#destroy', as: 'delete_user_account'
+    delete 'users/sign_out', to: 'devise/sessions#destroy', as: 'destroy_user_session'
+  end
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
