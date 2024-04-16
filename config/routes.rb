@@ -11,6 +11,12 @@ Rails.application.routes.draw do
 
   resources :cart, only: [:index, :create, :update, :destroy]
 
+  get 'orders/index'
+  get 'orders/show'
+  get 'orders/create'
+
+  get 'checkout', to: 'checkouts#index'
+
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations'}
 
   devise_scope :user do

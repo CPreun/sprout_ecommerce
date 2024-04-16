@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_193031) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_15_233054) do
   create_table "abouts", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", null: false
@@ -81,6 +81,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_193031) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["province_id"], name: "index_contacts_on_province_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "plant_id", null: false
+    t.integer "quantity"
+    t.string "weight"
+    t.decimal "unit_price"
+    t.decimal "gst_rate"
+    t.decimal "pst_rate"
+    t.decimal "hst_rate"
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["plant_id"], name: "index_order_items_on_plant_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.boolean "paid"
+    t.integer "status_id", null: false
+    t.string "shipping_id"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status_id"], name: "index_orders_on_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "plant_categories", force: :cascade do |t|
@@ -165,6 +191,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_193031) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sunlight_amounts", force: :cascade do |t|
     t.string "amount"
     t.datetime "created_at", null: false
@@ -197,6 +229,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_193031) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contacts", "provinces"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "plants"
+  add_foreign_key "orders", "statuses"
+  add_foreign_key "orders", "users"
   add_foreign_key "plant_subcategories", "plant_categories"
   add_foreign_key "plant_sunlight_amounts", "plants"
   add_foreign_key "plant_sunlight_amounts", "sunlight_amounts"

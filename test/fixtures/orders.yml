@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paid: false
+  status: one
+  shipping_id: MyString
+  user: one
+
+two:
+  paid: false
+  status: two
+  shipping_id: MyString
+  user: two
