@@ -6,6 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def show
     @user = current_user
+    # @user = User.includes(:province, :orders, :order_items, :plants).find(current_user.id)
   end
 
   # GET /resource/sign_up

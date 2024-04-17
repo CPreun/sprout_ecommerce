@@ -1,0 +1,57 @@
+<h1>Checkout</h1>
+
+<div class='d-flex flex-column'>
+    <div class='card'>
+        <div class='card-body'>
+            <h5 class='card-title'>Order Summary</h5>
+            <p>Order No. <%= @order.id %></p>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Weight</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @order_items.each do |item| %>
+                        <tr>
+                            <td><%= item.plant.name %></td>
+                            <td><%= item.quantity %></td>
+                            <td><%= item.weight %></td>
+                            <td><%= item.unit_price %></td>
+                            <td><%= item.quantity * item.unit_price %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <ul>
+                <li>Subtotal: <%= @subtotal %></li>
+                <% if @order.gst.present? and @order.gst > 0 %>
+                    <li>GST: <%= @order.gst * @subtotal %></li>
+                <% end %>
+                <% if @order.pst.present? and @order.pst > 0 %>
+                    <li>PST: <%= @order.pst * @subtotal %></li>
+                <% end %>
+                <% if @order.hst.present? and @order.hst > 0 %>
+                    <li>HST: <%= @order.hst * @subtotal %></li>
+                <% end %>
+            </ul>
+            <p>Total: <%= @total %></p>
+        </div>
+    </div>
+    <div class='card'>
+        <div class='card-body'>
+            <h5 class='card-title'>Shipping Address</h5>
+            <ul>
+                <li><%= @order.user.first_name %> <%= @order.user.last_name %></li>
+                <li><%= @order.user.street %></li>
+                <li><%= @order.user.city %>, <%= @order.user.province.code %></li>
+                <li><%= @order.user.postal_code %></li>
+            </ul>
+        </div>
+    </div>
+    <%= button_to "Pay", "#", class: 'btn btn-outline-primary' %>
+</div>
