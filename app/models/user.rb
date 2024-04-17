@@ -3,6 +3,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   has_many :orders
+  has_many :order_items, through: :orders
+  has_many :plants, through: :order_items
   
   belongs_to :province, optional: true
 

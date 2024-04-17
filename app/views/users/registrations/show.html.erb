@@ -34,3 +34,57 @@
 <% end %>
 
 <p><b>My Orders</b></p>
+<% if @user.orders.present? %>
+<% @user.orders.each do |order| %>
+    <div class='accordion' id='orders'>
+        <div class='accordion-item'>
+            <h2 class='accordion-header' id='heading<%= order.id %>'>
+                <button class='accordion-button border <%= order.status_id = 1 ? 'border-warning' : 'border-success' %>' type='button' data-bs-toggle='collapse' data-bs-target='#collapse<%= order.id %>' aria-expanded='true' aria-controls='collapse<%= order.id %>'>
+                    Order No. <%= order.id %> - <%= order.created_at.strftime("%B %d, %Y") %>
+                </button>
+            </h2>
+            <div id='collapse<%= order.id %>' class='accordion-collapse collapse' aria-labelledby='heading<%= order.id %>' data-bs-parent='#orders'>
+                <div class='accordion-body'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Weight</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% order.order_items.each do |item| %>
+                                <tr>
+                                    <td><%= item.plant.name %></td>
+                                    <td><%= item.quantity %></td>
+                                    <td><%= item.weight %></td>
+                                    <td><%= item.unit_price %></td>
+                                    <td><%= item.quantity * item.unit_price %></td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li>Subtotal: <%= order.subtotal %></li>
+                        <% if order.gst.present? and order.gst > 0 %>
+                            <li>GST: <%= order.gst * order.subtotal %></li>
+                        <% end %>
+                        <% if order.pst.present? and order.pst > 0 %>
+                            <li>PST: <%= order.pst * order.subtotal %></li>
+                        <% end %>
+                        <% if order.hst.present? and order.hst > 0 %>
+                            <li>HST: <%= order.hst * order.subtotal %></li>
+                        <% end %>
+                    </ul>
+                    <p>Total: <%= order.total %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+<% else %>
+    <p>No orders, yet ;).</p>
+<% end %>

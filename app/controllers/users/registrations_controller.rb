@@ -5,8 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def show
-    @user = current_user
-    # @user = User.includes(:province, :orders, :order_items, :plants).find(current_user.id)
+    # @user = current_user
+    @user = User.includes(:province, :orders, :order_items, :plants).find(current_user.id)
   end
 
   # GET /resource/sign_up
