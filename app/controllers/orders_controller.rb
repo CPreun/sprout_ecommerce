@@ -1,13 +1,13 @@
 class OrdersController < ApplicationController
-  def index
-    @orders = Order.where(user_id: current_user.id)
-    puts @orders
-  end
+  # def index
+  #   @orders = Order.where(user_id: current_user.id)
+  #   puts @orders
+  # end
 
-  def show
-    @order = Order.find(params[:id])
-    puts @order
-  end
+  # def show
+  #   @order = Order.find(params[:id])
+  #   puts @order
+  # end
 
   def create
     user = user_signed_in? ? current_user : User.find_or_create_by(email: params[:user][:email])
@@ -15,9 +15,9 @@ class OrdersController < ApplicationController
     create_order(user)
   end
 
-  def update
-    puts params
-  end
+  # def update
+  #   puts params
+  # end
 
   def create_order(user)
     order = Order.new(user_id: user.id)
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
 
     session[:cart].each do |item|
       item['amounts'].each do |amount|
-        unit_price, weight = Price.where(id: amount['price_id']).pluck(:price, :weight)
+        unit_price, weight = Price.where(id: amount['price_id'].to_i).pluck(:price, :weight)
         puts "Unit Price: #{unit_price}, Weight: #{weight}"
         order_item = OrderItem.new(plant_id: item['plant_id'], quantity: amount['quantity'], unit_price: unit_price, weight: weight, order_id: order.id)
         puts order_item.inspect

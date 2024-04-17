@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :cart, only: [:index, :create, :update, :destroy]
 
-  resources :orders, only: [:index, :show, :create, :update]
+  resources :orders, only: [:create]
 
   get '/checkout/shipping', to: 'checkouts#shipping'
   get '/checkout/summary', to: 'checkouts#summary'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_17_132427) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_17_183410) do
   create_table "abouts", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", null: false
@@ -88,9 +88,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_132427) do
     t.integer "quantity"
     t.string "weight"
     t.decimal "unit_price"
-    t.decimal "gst_rate"
-    t.decimal "pst_rate"
-    t.decimal "hst_rate"
     t.integer "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
