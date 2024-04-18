@@ -15,9 +15,12 @@ Rails.application.routes.draw do
 
   get '/checkout/shipping', to: 'checkouts#shipping'
   get '/checkout/summary', to: 'checkouts#summary'
+  get '/checkout/payment', to: 'checkouts#payment'
 
-  # post '/checkout', to: 'checkouts#create'
+  # post '/checkout', to: 'checkouts#create', as: 'checkout_create'
   # put '/checkout', to: 'checkouts#update'
+  get '/checkout', to: 'checkouts#show', as: 'checkout'
+
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations'}
 

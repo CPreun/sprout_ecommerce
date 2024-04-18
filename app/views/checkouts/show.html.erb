@@ -1,0 +1,11 @@
+<h1>Checkout</h1>
+
+<% if @order.paid == true %>
+    <div class='alert alert-success' role='alert'>
+        Your order has been paid. Thank you!
+    </div>
+<% else %>
+    <div class='alert alert-danger' role='alert'>
+        There was an error processing your payment. Please try again later.
+    </div>
+<% end %>

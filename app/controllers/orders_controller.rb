@@ -31,9 +31,9 @@ class OrdersController < ApplicationController
 
     session[:cart].each do |item|
       item['amounts'].each do |amount|
-        unit_price, weight = Price.where(id: amount['price_id'].to_i).pluck(:price, :weight)
-        puts "Unit Price: #{unit_price}, Weight: #{weight}"
-        order_item = OrderItem.new(plant_id: item['plant_id'], quantity: amount['quantity'], unit_price: unit_price, weight: weight, order_id: order.id)
+        price_weight = Price.where(id: amount['price_id'].to_i).pluck(:price, :weight)
+        puts "Unit Price: #{price_weight[0]}, Weight: #{price_weight[1]}"
+        order_item = OrderItem.new(plant_id: item['plant_id'], quantity: amount['quantity'], unit_price: price_weight[0], weight: price_weight[1], order_id: order.id)
         puts order_item.inspect
         order_item.save
       end
