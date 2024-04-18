@@ -39,10 +39,14 @@
     <div class='accordion' id='orders'>
         <div class='accordion-item'>
             <h2 class='accordion-header' id='heading<%= order.id %>'>
-                <button class='accordion-button border <%= order.status_id == 1 ? 'border-warning' : 'border-success' %>' type='button' data-bs-toggle='collapse' data-bs-target='#collapse<%= order.id %>' aria-expanded='true' aria-controls='collapse<%= order.id %>'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="<%= order.status_id == 1 ? 'orange' : 'green' %>" class="bi bi-circle-fill me-2" viewBox="0 0 16 16">
+                <button class='accordion-button border <%= order.paid ? 'border-success' : 'border-warning' %>' type='button' data-bs-toggle='collapse' data-bs-target='#collapse<%= order.id %>' aria-expanded='true' aria-controls='collapse<%= order.id %>'>
+                    <% if order.status_id == 2 %>
+                        <span class='badge bg-success me-2'>Shipped</span>
+                    <% else %>                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="<%= order.paid ? 'green' : 'orange' %>" class="bi bi-circle-fill me-2" viewBox="0 0 16 16">
                         <circle cx="8" cy="8" r="8"/>
-                    </svg>   
+                    </svg>
+                    <% end %>   
                     #<%= order.id %> - <%= order.created_at.strftime("%B %d, %Y") %>
                 </button>
             </h2>
@@ -64,25 +68,31 @@
                                     <td><%= item.plant.name %></td>
                                     <td><%= item.quantity %></td>
                                     <td><%= item.weight %></td>
-                                    <td><%= item.unit_price %></td>
-                                    <td><%= item.quantity * item.unit_price %></td>
+                                    <td><%= number_to_currency(item.unit_price) %></td>
+                                    <td><%= number_to_currency(item.quantity * item.unit_price) %></td>
                                 </tr>
                             <% end %>
                         </tbody>
                     </table>
                     <ul>
-                        <li>Subtotal: <%= order.subtotal %></li>
+                        <li>Subtotal: <%= number_to_currency(order.subtotal) %></li>
                         <% if order.gst.present? and order.gst > 0 %>
-                            <li>GST: <%= order.gst * order.subtotal %></li>
+                            <li>GST: <%= number_to_currency(order.gst * order.subtotal) %></li>
                         <% end %>
                         <% if order.pst.present? and order.pst > 0 %>
-                            <li>PST: <%= order.pst * order.subtotal %></li>
+                            <li>PST: <%= number_to_currency(order.pst * order.subtotal) %></li>
                         <% end %>
                         <% if order.hst.present? and order.hst > 0 %>
-                            <li>HST: <%= order.hst * order.subtotal %></li>
+                            <li>HST: <%= number_to_currency(order.hst * order.subtotal) %></li>
                         <% end %>
                     </ul>
-                    <p>Total: <%= order.total %></p>
+                    <div class='d-flex justify-content-between'>
+                        <p><b>Total:</b> <%= number_to_currency(order.total) %></p>
+                        <% if order.shipping_id.present? %>
+                            <p><b>Tracking #:</b> <%= order.shipping_id %></p>
+                        <% end %>
+                    </div>
+
                 </div>
             </div>
         </div>
