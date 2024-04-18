@@ -24,6 +24,6 @@ class Order < ApplicationRecord
   end
 
   def total
-    subtotal + (gst.present? ? gst : 0 * subtotal) + (pst.present? ? pst : 0 * subtotal) + (hst.present? ? hst : 0 * subtotal)
+    (((gst.nil? ? 0 : gst) + (pst.nil? ? 0 : pst) + (hst.nil? ? 0 : hst)) * subtotal) + subtotal
   end
 end

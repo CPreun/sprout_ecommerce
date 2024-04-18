@@ -51,20 +51,20 @@ ActiveAdmin.register Order do
           column :weight
         end
       end
+      row "Subtotal" do
+        number_to_currency(order.subtotal)
+      end      
       row "Province" do |order|
         order.user.province.province
       end
       row "GST" do
-        "#{order.subtotal * order.gst / 100} (#{order.gst}%)" if order.gst.present?
+        "#{order.subtotal * order.gst} (#{order.gst})" if order.gst.present?
       end
       row "PST" do
-        "#{order.subtotal * order.pst / 100} (#{order.pst}%)" if order.pst.present?
+        "#{order.subtotal * order.pst} (#{order.pst})" if order.pst.present?
       end
       row "HST" do
-        "#{order.subtotal * order.hst / 100} (#{order.hst}%)" if order.hst.present?
-      end
-      row "Subtotal" do
-        number_to_currency(order.subtotal)
+        "#{order.subtotal * order.hst} (#{order.hst})" if order.hst.present?
       end
       row "Total" do
         number_to_currency(order.total)

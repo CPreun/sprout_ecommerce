@@ -28,11 +28,17 @@
     text-align: left;
     background-color: rgb(251, 255, 246);
     height: 100%;
+    min-width: 350px;
 }
 
 ul {
     list-style: none;
     padding: 0;
+}
+
+a {
+    /* text-decoration: none; */
+    color: #223824;
 }
 
 header a:link, footer a:link {
@@ -51,7 +57,7 @@ header a:hover, footer a:hover {
 }
 
 header a:active, footer a:active{
-    text-decoration: none;
+    /* text-decoration: none; */
     /* color: white; */
 }
 

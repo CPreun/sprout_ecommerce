@@ -11,12 +11,11 @@
             <%= link_to "About", about_path, class: 'nav-link' 
             <%= link_to "Contact Us", contact_path, class: 'nav-link' 
         </div> %>
-    <nav class='navbar container-fluid'>
-        <div>
-            <%= link_to "Sprout", root_path, class: 'navbar-brand' %>
-        </div>
+    <nav class='navbar container-fluid d-flex flex-column flex-md-row align-items-center'>
+        <%= link_to "Sprout", root_path, class: 'navbar-brand' %>
         <% if not current_page?("/") %>
-            <%= render 'layouts/search' %>
+        <div class='py-md-0 pb-2'>
+            <%= render 'layouts/search' %></div>
         <% end %>
         <div class='d-flex flex-row'>
             <% if user_signed_in? %>
@@ -28,8 +27,6 @@
                         <span class='visually-hidden'></span>
                     </button>
                     <ul class='dropdown-menu'>
-                        <%# <li><%= link_to "Orders", orders_path </li> %>
-                        <%# <li><%= link_to "Settings", edit_user_registration_path, class: 'dropdown-item' </li> %>
                         <li><%= button_to "Logout", destroy_user_session_path, method: :delete, data: {turbo: false}, class: 'dropdown-item' %></li>
                     </ul>
                 </div>
@@ -44,7 +41,7 @@
         </div>
         <div class='collapse position-absolute top-100 end-0' style="z-index: 2000" id='cart-details'>
             <% if cart.present? %>
-                <%= puts cart.inspect %>
+            <div class='card'>
                 <% cart.each do |item| %>
                 <div class='card'>
                     <div class='card-body'>
@@ -63,8 +60,10 @@
                     </div>
                 </div>
                 <% end %>
-                <%= link_to "Checkout", '/checkout/shipping', class: 'btn btn-primary' %>
-                <%# <button class='btn btn-primary'>Checkout</button> %>
+                <div class='card-footer'>
+                    <%= link_to "Checkout", '/checkout/shipping', class: 'btn btn-primary' %>
+                </div>
+            </div>
             <% else %>
                 <div class='card'>
                     <div class='card-body'>
