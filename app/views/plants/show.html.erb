@@ -13,6 +13,7 @@
     <% else %>
         <div class='input-group'>
             <%= form.label :price_id, @plant.prices.first.price %>
+            <%= form.hidden_field :price_id, value: @plant.prices.first.id %>
         </div>
     <% end %>
     <div class='input-group'>

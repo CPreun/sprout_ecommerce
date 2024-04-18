@@ -1,10 +1,12 @@
+<div class='d-flex flex-column align-items-center'>
 <h1>Checkout</h1>
 
-<div class='card'>
+<div class='card mt-2'>
     <div class='card-body'>
         <div data-controller="stripe" 
             data-stripe-public-key-value="<%= Rails.application.credentials.stripe[:publishable_key] %>"
             data-stripe-client-secret-value="<%= @session.client_secret %>">
         </div>
     </div>
+</div>
 </div>

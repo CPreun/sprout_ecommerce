@@ -11,7 +11,9 @@ class OrdersController < ApplicationController
 
   def create
     user = user_signed_in? ? current_user : User.find_or_create_by(email: params[:user][:email])
-    user.update(params.require(:user).permit(:first_name, :last_name, :phone, :street, :city, :postal_code, :province_id))
+    puts "USER: #{user.inspect}"
+    puts user.errors.full_messages
+    user.update(params.require(:user).permit(:first_name, :last_name, :email, :phone, :street, :city, :postal_code, :province_id))
     create_order(user)
   end
 
@@ -25,15 +27,15 @@ class OrdersController < ApplicationController
     if user.province.pst.present? and user.province.pst > 0 then order.pst = user.province.pst end
     if user.province.hst.present? and user.province.hst > 0 then order.hst = user.province.hst end
     order.save
-
+    puts order.inspect
     # {"plant_id"=>"405", "amounts"=>[{"quantity"=>"3", "price_id"=>"2576"}]}
     # {"plant_id"=>"307", "amounts"=>[{"quantity"=>1, "price_id"=>"1972"}, {"quantity"=>2, "price_id"=>"1973"}]}
 
     session[:cart].each do |item|
       item['amounts'].each do |amount|
         price_weight = Price.where(id: amount['price_id'].to_i).pluck(:price, :weight)
-        puts "Unit Price: #{price_weight[0]}, Weight: #{price_weight[1]}"
-        order_item = OrderItem.new(plant_id: item['plant_id'], quantity: amount['quantity'], unit_price: price_weight[0], weight: price_weight[1], order_id: order.id)
+        puts "Unit Price: #{price_weight[0][0]}, Weight: #{price_weight[0][1]}"
+        order_item = OrderItem.new(plant_id: item['plant_id'], quantity: amount['quantity'], unit_price: price_weight[0][0], weight: price_weight[0][1], order_id: order.id)
         puts order_item.inspect
         order_item.save
       end

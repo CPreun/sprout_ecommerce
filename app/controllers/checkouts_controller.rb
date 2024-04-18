@@ -33,7 +33,7 @@ class CheckoutsController < ApplicationController
   end
 
   def payment
-    order = Order.includes(:order_items, :user, :status, :plants).find(1)
+    order = Order.includes(:order_items, :user, :status, :plants).find(session[:order])
     subtotal = order.subtotal
     total = order.total
 
@@ -79,7 +79,9 @@ class CheckoutsController < ApplicationController
   end
 
   def show
+    puts params.inspect
     @order = Order.find_by(stripe_id: params[:session_id])
+    puts @order.inspect
     stripe_session = Stripe::Checkout::Session.retrieve(params[:session_id])
 
     # set alert and redirect to account page
@@ -88,7 +90,11 @@ class CheckoutsController < ApplicationController
       @order.update(paid: true)
       session[:order] = nil
       flash[:success] = "Payment successful!"
-      redirect_to "/account"
+      if user_signed_in?
+        redirect_to "/account"
+      else
+        redirect_to "/"
+      end
     else
       flash[:error] = "Payment failed. Please try again."
       redirect_to "/checkout/summary"

@@ -1,6 +1,6 @@
+<div class='d-flex flex-column align-items-center'>
 <h1>Checkout</h1>
-
-<div class='d-flex flex-column'>
+<div class='d-flex flex-column mt-2'>
     <div class='card'>
         <div class='card-body'>
             <h5 class='card-title'>Order Summary</h5>
@@ -21,8 +21,8 @@
                             <td><%= item.plant.name %></td>
                             <td><%= item.quantity %></td>
                             <td><%= item.weight %></td>
-                            <td><%= item.unit_price %></td>
-                            <td><%= item.quantity * item.unit_price %></td>
+                            <td><%= number_to_currency(item.unit_price) %></td>
+                            <td><%= number_to_currency(item.quantity * item.unit_price) %></td>
                         </tr>
                     <% end %>
                 </tbody>
@@ -30,16 +30,16 @@
             <ul>
                 <li>Subtotal: <%= @subtotal %></li>
                 <% if @order.gst.present? and @order.gst > 0 %>
-                    <li>GST: <%= @order.gst * @subtotal %></li>
+                    <li>GST: <%= number_to_currency(@order.gst * @subtotal) %></li>
                 <% end %>
                 <% if @order.pst.present? and @order.pst > 0 %>
-                    <li>PST: <%= @order.pst * @subtotal %></li>
+                    <li>PST: <%= number_to_currency(@order.pst * @subtotal) %></li>
                 <% end %>
                 <% if @order.hst.present? and @order.hst > 0 %>
-                    <li>HST: <%= @order.hst * @subtotal %></li>
+                    <li>HST: <%= number_to_currency(@order.hst * @subtotal) %></li>
                 <% end %>
             </ul>
-            <p>Total: <%= @total %></p>
+            <p><b>Total:</b> <%= number_to_currency(@total) %></p>
         </div>
     </div>
     <div class='card'>
@@ -53,5 +53,6 @@
             </ul>
         </div>
     </div>
-    <%= link_to "Payment Details", checkout_payment_path, class: 'btn btn-outline-primary' %>
+    <%= link_to "Payment Details ->", checkout_payment_path, class: 'btn btn-outline-primary' %>
+</div>
 </div>

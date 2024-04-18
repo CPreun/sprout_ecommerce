@@ -1,14 +1,14 @@
+<div class='d-flex flex-column align-items-center'>
 <h1>Checkout</h1>
-
-<div class='d-flex flex-row'>
+<div class='d-flex flex-row mt-2' style='max-width: 400px'>
     <div class='card'>
         <div class='card-body'>
             <h5 class='card-title'>Shipping Address</h5>
                 <%= form_with model: @user, url: orders_path, method: :post, class: 'row g-3 mb-3' do |f| %>
-                    <div class='col-6'>
+                    <div class='col-12'>
                         <%= f.text_field :first_name, placeholder: 'First Name', class: 'form-control' %>
                     </div>
-                    <div class='col-6'>
+                    <div class='col-12'>
                         <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control' %>
                     </div>
                     <div class='col-12'>
@@ -20,20 +20,21 @@
                     <div class='col-12'>
                         <%= f.text_field :street, placeholder: 'Street', class: 'form-control' %>
                     </div>
-                    <div class='col-6'>
+                    <div class='col-12'>
                         <%= f.text_field :city, placeholder: 'City', class: 'form-control' %>
                     </div>
-                    <div class='col-2'>
-                        <%= f.collection_select :province_id, Province.all, :id, :code, {prompt: 'Select a province...'}, class: 'form-select' %>
-                    </div>
-                    <div class='col-4'>
-                        <%= f.text_field :postal_code, placeholder: 'Postal Code', class: 'form-control' %>
+                    <div class='col-6'>
+                        <%= f.collection_select :province_id, Province.all, :id, :code, {prompt: 'Province...'}, class: 'form-select' %>
                     </div>
                     <div class='col-6'>
-                        <%= f.submit 'Confirm Address', class: 'btn btn-outline-secondary' %>
+                        <%= f.text_field :postal_code, placeholder: 'Postal Code', class: 'form-control' %>
+                    </div>
+                    <div class='col-12 d-flex justify-content-end'>
+                        <%= f.submit "Order Summary ->", class: 'btn btn-outline-primary' %>
                     </div>
                 <% end %>
             </div>
         </div>
     </div>
+</div>
 </div>

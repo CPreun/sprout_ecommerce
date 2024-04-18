@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
 
     def cart
         if not session[:cart].nil?
+          puts "Cart: #{session[:cart]}"
             cart_objects ||= session[:cart].map do |item|
               {
                 plant: Plant.find(item['plant_id']), 
