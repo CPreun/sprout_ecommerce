@@ -26,9 +26,13 @@
     line-height: 1.5;
     color: #223824;
     text-align: left;
-    background-color: rgb(251, 255, 246);
+    background-color: rgb(249, 255, 246);
     height: 100%;
     min-width: 350px;
+}
+
+main {
+    max-width: 1080px;
 }
 
 ul {

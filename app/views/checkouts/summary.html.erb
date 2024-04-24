@@ -3,8 +3,8 @@
 <div class='d-flex flex-column mt-2'>
     <div class='card'>
         <div class='card-body'>
-            <h5 class='card-title'>Order Summary</h5>
-            <p>Order No. <%= @order.id %></p>
+            <h5 class='card-title'><b>Order Summary</b></h5>
+            <p><i>Order No. <%= @order.id %></i></p>
             <table class='table'>
                 <thead>
                     <tr>
@@ -19,32 +19,32 @@
                     <% @order_items.each do |item| %>
                         <tr>
                             <td><%= item.plant.name %></td>
-                            <td><%= item.quantity %></td>
-                            <td><%= item.weight %></td>
-                            <td><%= number_to_currency(item.unit_price) %></td>
-                            <td><%= number_to_currency(item.quantity * item.unit_price) %></td>
+                            <td class='text-center'><%= item.quantity %></td>
+                            <td class='text-center'><%= item.weight %></td>
+                            <td class='text-end'><%= number_to_currency(item.unit_price) %></td>
+                            <td class='text-end'><%= number_to_currency(item.quantity * item.unit_price) %></td>
                         </tr>
                     <% end %>
                 </tbody>
             </table>
             <ul>
-                <li>Subtotal: <%= @subtotal %></li>
+                <li class='text-end'>Subtotal: <%= number_to_currency(@subtotal) %></li>
                 <% if @order.gst.present? and @order.gst > 0 %>
-                    <li>GST: <%= number_to_currency(@order.gst * @subtotal) %></li>
+                    <li class='text-end'>GST: <%= number_to_currency(@order.gst * @subtotal) %></li>
                 <% end %>
                 <% if @order.pst.present? and @order.pst > 0 %>
-                    <li>PST: <%= number_to_currency(@order.pst * @subtotal) %></li>
+                    <li class='text-end'>PST: <%= number_to_currency(@order.pst * @subtotal) %></li>
                 <% end %>
                 <% if @order.hst.present? and @order.hst > 0 %>
-                    <li>HST: <%= number_to_currency(@order.hst * @subtotal) %></li>
+                    <li class='text-end'>HST: <%= number_to_currency(@order.hst * @subtotal) %></li>
                 <% end %>
             </ul>
-            <p><b>Total:</b> <%= number_to_currency(@total) %></p>
+            <p class='text-end'><b>Total:</b> <%= number_to_currency(@total) %></p>
         </div>
     </div>
     <div class='card'>
         <div class='card-body'>
-            <h5 class='card-title'>Shipping Address</h5>
+            <h5 class='card-title'><b>Shipping Address</b></h5>
             <ul>
                 <li><%= @order.user.first_name %> <%= @order.user.last_name %></li>
                 <li><%= @order.user.street %></li>
@@ -53,6 +53,6 @@
             </ul>
         </div>
     </div>
-    <%= link_to "Payment Details ->", checkout_payment_path, class: 'btn btn-outline-primary' %>
+    <%= link_to "Payment Details ->", checkout_payment_path, class: 'btn btn-success' %>
 </div>
 </div>

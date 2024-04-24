@@ -1,25 +1,35 @@
 <%= render_breadcrumbs %>
-<h1><%= @plant.name %></h1>
-<h2><i><%= @plant.latin_name %></i></h2>
-<%= image_tag @plant.image, alt: @plant.name, width: "500", class: "img-thumbnail" %>
-<p><%= @plant.description %></p>
 
-<%= form_with url: cart_index_path, method: :post do |form| %>
-    <%= form.hidden_field :plant_id, value: @plant.id %>
-    <% if @plant.prices.count > 1 %>
-        <div class="input-group">
-            <%= form.collection_select :price_id, @plant.prices.all, :id, :price, {class: 'form-select'} %>
+<div class='row gy-2 mt-2'>
+    <%= image_tag @plant.image, alt: @plant.name, width: "300", class: "img-thumbnail p-0 col-12 col-md-6" %>
+    <div class="col-12 col-md-6 d-flex flex-column justify-content-between">
+        <div>
+            <h1><%= @plant.name %></h1>
+            <h3><i><%= @plant.latin_name %></i></h3>
+            <hr/>
+            <p><%= @plant.description %></p>
         </div>
-    <% else %>
-        <div class='input-group'>
-            <%= form.label :price_id, @plant.prices.first.price %>
-            <%= form.hidden_field :price_id, value: @plant.prices.first.id %>
-        </div>
-    <% end %>
-    <div class='input-group'>
-        <%= form.number_field :quantity, class: 'form-control', value: 1 %>
+        <%= form_with url: cart_index_path, method: :post do |form| %>
+            <%= form.hidden_field :plant_id, value: @plant.id %>
+            <% if @plant.prices.count > 1 %>
+                <div class="input-group">
+                    <%= form.collection_select :price_id, @plant.prices.all, :id, lambda { |price| "#{price.weight.present? ? "#{price.weight} - " : ""}#{price.quantity.present? ? "Approx. #{price.quantity} - " : ""}#{number_to_currency(price.price)}" }, {}, {class: 'form-select'} %>
+                </div>
+            <% else %>
+                <div class='input-group', style="width: 100px">
+                    <%= form.label :price_id, number_to_currency(@plant.prices.first.price), class: "form-control" %>
+                    <%= form.hidden_field :price_id, value: @plant.prices.first.id %>
+                </div>
+            <% end %>
+            <div class='d-flex mt-2'>
+                <div class='input-group' style="width: 120px">
+                    <%= form.number_field :quantity, class: 'form-control', value: 1, min: 0, max: 99 %>
+                </div>
+                <div class='input-group justify-content-end'>
+                    <%= form.submit "Add To Cart", class: 'btn btn-success' %>
+                </div>                
+            </div>
+        <% end %>
     </div>
-    <div class='input-group'>
-        <%= form.submit "Add to cart", class: 'btn btn-outline-success' %>
-    </div>
-<% end %>
+</div>
+

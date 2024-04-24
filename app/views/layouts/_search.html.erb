@@ -1,8 +1,8 @@
 <%= form_with url: plants_path, method: :get, local: true, id: 'search_form' do |form| %>
     <div class="input-group">
-        <button type='button' class='btn btn-outline-success dropdown-toggle' data-bs-toggle='collapse' data-bs-target='#collapse_search'></button>
-        <%= form.search_field :search, class: 'form-control shadow-none border-success', placeholder: "Search...", value: params[:search] %>
-        <%= form.submit "Grow!", class: 'btn btn-outline-success' %>
+      <button type='button' class='btn btn-outline-success dropdown-toggle' data-bs-toggle='collapse' data-bs-target='#collapse_search'></button>
+      <%= form.search_field :search, class: 'form-control shadow-none border-success', placeholder: "Search...", value: params[:search] %>
+      <%= form.submit "GrOw!", class: 'btn btn-outline-success' %>
     </div>
 
     <div class='collapse collapse-vertical' id='collapse_search'>
@@ -29,7 +29,6 @@
                 <%= form.label :updated, "Recently Updated", {class: 'form-check-label'} %>              
               </div>
             </div>
-
         </div>
     </div>
 <% end %>

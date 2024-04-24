@@ -1,33 +1,41 @@
-<h1>Welcome</h1>
+<%# <h1>Welcome</h1> %>
 <%= render '/layouts/search' %>
 
 <%# Feature %>
-<div id='feature_carousel' class='carousel slide' data-bs-ride='carousel'>
+<div id='feature_carousel' class='carousel slide pt-3' data-bs-ride='carousel'>
     <div class='carousel-indicators'>
         <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='0' class='active' aria-current='true' aria-label='Slide 1'></button>
         <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='1' aria-label='Slide 2'></button>
         <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='2' aria-label='Slide 3'></button>
+        <button type='button' data-bs-target='#feature_carousel' data-bs-slide-to='3' aria-label='Slide 4'></button>
     </div>
-    <div class='carousel-inner'>
-        <div class='carousel-item active'>
-            <%# <%= image_tag 'feature1.jpg', alt: 'Feature 1', class: 'd-block w-100' %>
-            <div class='carousel-caption d-none d-md-block'>
-                <h5>Feature 1</h5>
-                <p>Feature 1 description</p>
+    <div class='carousel-inner rounded-1'>
+        <div class='carousel-item active ratio ratio-21x9'>
+            <%= image_tag 'flower_feature.jpg', alt: 'Feature 1', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block p-5 text-end'>
+                <h5>Beautiful Blooms</h5>
+                <p>Spring bulbs now on sale now.</p>
             </div>
         </div>
-        <div class='carousel-item'>
-            <%# <%= image_tag 'feature2.jpg', alt: 'Feature 2', class: 'd-block w-100' %>
-            <div class='carousel-caption d-none d-md-block'>
-                <h5>Feature 2</h5>
-                <p>Feature 2 description</p>
+        <div class='carousel-item ratio ratio-21x9'>
+            <%= image_tag 'vegetable_feature.jpg', alt: 'Feature 2', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block p-5 text-start align-content-end'>
+                <h5>Garden to Table</h5>
+                <p>Get excited about meal prep this summer.</p>
             </div>
         </div>
-        <div class='carousel-item'>
-            <%# <%= image_tag 'feature3.jpg', alt: 'Feature 3', class: 'd-block w-100' %>
-            <div class='carousel-caption d-none d-md-block'>
-                <h5>Feature 3</h5>
-                <p>Feature 3 description</p>
+        <div class='carousel-item ratio ratio-21x9'>
+            <%= image_tag 'dirty_hands_feature.jpg', alt: 'Feature 3', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block p-5 text-end align-content-end'>
+                <h5>Spring Seeding</h5>
+                <p>We've got all your planting needs covered.</p>
+            </div>
+        </div>
+        <div class='carousel-item ratio ratio-21x9'>
+            <%= image_tag 'gardening_together_feature.jpg', alt: 'Feature 4', class: 'd-block w-100' %>
+            <div class='carousel-caption d-none d-md-block p-5 text-start'>
+                <h5>Questions?</h5>
+                <p>Let us help you grow.</p>
             </div>
         </div>
     </div>
@@ -42,7 +50,7 @@
 </div>
 
 <%# Categories %>
-<div class='row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 py-3'>
+<div class='row row-cols-sm-2 row-cols-md-3 p-2'>
 <% @plant_categories.each do |c| %>
     <div class='card p-0 overflow-hidden'>
         <%= link_to "/plants?category=#{c.id}", class: "text-white zoom" do %>

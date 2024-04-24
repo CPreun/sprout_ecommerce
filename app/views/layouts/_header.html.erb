@@ -41,28 +41,34 @@
         </div>
         <div class='collapse position-absolute top-100 end-0' style="z-index: 2000" id='cart-details'>
             <% if cart.present? %>
-            <div class='card'>
+            <div class='card bg-success-subtle p-1'>
                 <% cart.each do |item| %>
-                <div class='card'>
+                <div class='card mb-1'>
                     <div class='card-body'>
-                        <h5 class='card-title'><%= item[:plant].name %></h5>
+                        
+                        <div class='d-flex align-items-center'>                        
+                        <%= image_tag item[:plant].image, width: "100", class: "img-thumbnail me-2" %>
+                        <div>
+                            <h5 class='card-title'><%= item[:plant].name %></h5>
                         <% item[:amounts].each do |amount| %>
                             <%= form_with url: cart_path(item[:plant].id), method: :put, remote: true do |f| %>
                                 <%= f.hidden_field :price_id, value: amount[:price].id %>
-                                <%= f.number_field :quantity, value: amount[:quantity], in: 0...100, step: 1, onChange: 'this.form.submit()' %>
-                                <%# <%= f.submit "Update", class: 'btn btn-outline-secondary' %>
-                            <% end %>
-                            <p class='card-text'><%= amount[:quantity] %>@<%= amount[:price].price %></p>
+                                <div class='input-group'>
+                                    <%= f.number_field :quantity, value: amount[:quantity], in: 0...100, step: 1, onChange: 'this.form.submit()', class: 'form-control', style: "width: 80px" %>
+                                    <%# <span class="input-group-text">@</span> %>
+                                    <label class='form-control text-end' style="width: 90px"><%= number_to_currency(amount[:price].price) %></label>
+                                </div>
+                            <% end %>                        
                         <% end %>
+                        </div>
+                        </div>
                     </div>
-                    <div class='card-footer'>
+                    <div class='card-footer d-flex justify-content-end'>
                         <%= button_to "Remove", cart_path(item[:plant].id), method: :delete, class: 'btn btn-secondary' %>
                     </div>
                 </div>
                 <% end %>
-                <div class='card-footer'>
-                    <%= link_to "Checkout", '/checkout/shipping', class: 'btn btn-primary' %>
-                </div>
+                <%= link_to "Checkout", '/checkout/shipping', class: 'btn btn-success' %>
             </div>
             <% else %>
                 <div class='card'>

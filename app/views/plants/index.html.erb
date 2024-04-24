@@ -1,14 +1,15 @@
 <%= render_breadcrumbs %>
 <p><%= pluralize(@plants_count, "result") %> found</p>
 
-<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
    <% @plants.each do |plant| %>
     <div class='card p-0 overflow-hidden'>
         <%= link_to "/plants/#{plant.name.gsub(' ', '_')}", class: 'text-white zoom' do %>
             <%= image_tag plant.image, alt: plant.name, width: "200", class: 'card-img-top' %>        
             <div class='card-img-overlay d-flex flex-column justify-content-start bg-dark opacity-75 top-50 price'>
-                <h5 class='card-title d-flex'><%= plant.name %></h5>
-                <p class='card-text d-flex'>From <%= plant.prices.first.price %> </p>
+                <h5 class='card-title d-flex'><b><%= plant.name %></b></h5>
+                <hr class='m-1' />
+                <p class='card-text d-flex'><%= plant.prices.count > 1 ? "From " : "" %><%= number_to_currency(plant.prices.first.price) %> </p>
             </div>
         <% end %>
     </div>

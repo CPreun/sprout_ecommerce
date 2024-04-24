@@ -52,7 +52,7 @@ class PlantsController < ApplicationController
     end
 
     @plants_count = all_plants.count
-    @plants = all_plants.includes(:prices, :plant_subcategory).order(:name).page(params[:page]).per(12)
+    @plants = all_plants.includes(:prices, :plant_subcategory).order(:name).page(params[:page]).per(20)
   end
 
   def show
