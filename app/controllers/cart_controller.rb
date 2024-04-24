@@ -32,6 +32,9 @@ class CartController < ApplicationController
             # If plant id not found, add the new plant to the cart
             session[:cart] << { plant_id: params['plant_id'], amounts: [{ quantity: params['quantity'].to_i, price_id: params['price_id']}]}
         end
+
+        flash.now[:success] = "Added to cart!"
+        render turbo_stream: turbo_stream.replace('flash-messages', partial: '/application/flash_message')
     end
 
     def update

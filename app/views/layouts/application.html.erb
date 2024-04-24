@@ -16,8 +16,9 @@
     <%= render "layouts/header" %>
     <main class='container-fluid homebody'>
         <%= yield %>
-        <p class='notice'><%= notice %></p>
-        <p class='alert'><%= alert %></p>
+        <%= render "application/flash_message" %>
+        <%# <p class='notice' role="alert"><%= notice </p> %>
+        <%# <p class='alert' role="alert"><%= alert </p> %>
     </main>
     <%= render "layouts/footer" %>
   </body>

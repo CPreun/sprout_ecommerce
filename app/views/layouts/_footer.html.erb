@@ -34,8 +34,7 @@
                 <% if user_signed_in? %>
                     <%= link_to "My Account", "/account" %>
                 <% else %>
-                    <%= button_to "Login", user_google_oauth2_omniauth_authorize_path, method: :post, data: {turbo: false}, class: 'link' %>
-                    <%= link_to "Sign Up", '#' %>
+                    <%= button_to "Login", user_google_oauth2_omniauth_authorize_path, method: :post, data: {turbo: false}, class: 'btn btn-link p-0 signin' %>
                 <% end %>
             </ul>
         </div>

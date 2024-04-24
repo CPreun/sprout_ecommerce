@@ -33,7 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    puts "destroy: #{params}"
+    # puts "destroy: #{params}"
     super
     destroy_user_session;
   end

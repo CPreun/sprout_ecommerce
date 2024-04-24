@@ -1,0 +1,8 @@
+<div id="flash-messages" class="sticky-bottom my-2 w-25">
+    <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %> d-flex align-center justify-content-between m-0">
+            <p class="mb-0"><%= message %></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <% end %>
+</div>

@@ -40,12 +40,12 @@ ul {
     padding: 0;
 }
 
-a {
+a, .signin {
     /* text-decoration: none; */
     color: #223824;
 }
 
-header a:link, footer a:link {
+header a:link, footer a:link, .signin {
     text-decoration: none;
     /* color: white; */
 }
